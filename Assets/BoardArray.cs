@@ -2,20 +2,30 @@
 using System.Collections;
 
 public class BoardArray : MonoBehaviour {
-    private Vector3[,] locations = new Vector3[10,10];
+    public Vector3[,] locations = new Vector3[10,10];
     private bool[,] isFree = new bool[10,10];
 	// Use this for initialization
-	void Awake ()
+	void Start ()
     {
         locations[0, 0] = GameObject.Find("A0").GetComponent<Transform>().position;
-        for(int i = 0; i<10; i++)
+        float y = locations[0, 0].y;
+        for (int i = 0; i<10; i++)
         {
             for(int j = 0; j<10; j++)
             {
-                locations[i, j].x = locations[0, 0].x + 1;
-                locations[i, j].y = locations[0, 0].y;
-                locations[i, j].z = locations[0, 0].z;
+                if (j == 0)
+                {
+                    locations[i, j].x = locations[0, 0].x;
+                    locations[i, j].x = y;
+                }
+                else
+                {
+                    locations[i, j].x = locations[0, 0].x + 1;
+                    locations[i, j].y = y;
+                    locations[i, j].z = locations[0, 0].z;
+                }
             }
+            y -= 1;
         }
         for(int i = 0; i < 10; i++)
         {
