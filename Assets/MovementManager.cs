@@ -25,7 +25,53 @@ public class MovementManager : MonoBehaviour {
                 locationY -= 1;
             }
             pickerLocation.y = locations[locationY, locationX].y;
+            pickerLocation.z = 0;
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
-	}
+
+        if (Input.GetKeyDown("down"))
+        {
+            if (locationY + 1 > 9)
+            {
+                locationY = 0;
+            }
+            else
+            {
+                locationY += 1;
+            }
+            pickerLocation.y = locations[locationY, locationX].y;
+            pickerLocation.z = 0;
+            GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
+        }
+
+        if (Input.GetKeyDown("left"))
+        {
+            if (locationX - 1 < 0)
+            {
+                locationX = 9;
+            }
+            else
+            {
+                locationX -= 1;
+            }
+            pickerLocation.x = locations[locationY, locationX].x;
+            pickerLocation.z = 0;
+            GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
+        }
+
+        if (Input.GetKeyDown("right"))
+        {
+            if (locationX + 1 > 9)
+            {
+                locationX = 0;
+            }
+            else
+            {
+                locationX += 1;
+            }
+            pickerLocation.x = locations[locationY, locationX].x;
+            pickerLocation.z = 0;
+            GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
+        }
+    }
 }

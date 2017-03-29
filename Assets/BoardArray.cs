@@ -16,13 +16,13 @@ public class BoardArray : MonoBehaviour {
                 if (j == 0)
                 {
                     locations[i, j].x = locations[0, 0].x;
-                    locations[i, j].x = y;
+                    locations[i, j].y = y;
                 }
                 else
                 {
-                    locations[i, j].x = locations[0, 0].x + 1;
+                    locations[i, j].x = locations[0, j-1].x + 1;
                     locations[i, j].y = y;
-                    locations[i, j].z = locations[0, 0].z;
+                    locations[i, j].z = 0;
                 }
             }
             y -= 1;
