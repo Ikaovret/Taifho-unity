@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class BoardArray : MonoBehaviour {
-    public Vector3[,] locations = new Vector3[10,10];
-    private bool[,] isFree = new bool[10,10];
+    private Vector3[,] locations = new Vector3[10,10];
+    private GameObject[,] pieces = new GameObject[10,10];
 	// Use this for initialization
 	void Start ()
     {
@@ -27,13 +27,7 @@ public class BoardArray : MonoBehaviour {
             }
             y -= 1;
         }
-        for(int i = 0; i < 10; i++)
-        {
-            for(int j = 0; j<10; j++)
-            {
-                isFree[i, j] = false;
-            }
-        }
+        pieces[3, 9] = GameObject.Find("Player One Circle");
     }
 
     // Update is called once per frame
@@ -47,18 +41,10 @@ public class BoardArray : MonoBehaviour {
         return locations;
     }
 
-    public bool[,] GetIsFree()
+    public GameObject[,] GetPieces()
     {
-        return isFree;
+        return pieces;
     }
 
-    public void PlaceIsFree(int x, int y)
-    {
-        isFree[x, y] = true;
-    }
-
-    public void EmptyIsFree(int x, int y)
-    {
-        isFree[x, y] = false;
-    }
+    
 }

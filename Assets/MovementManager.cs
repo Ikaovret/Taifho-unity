@@ -6,6 +6,8 @@ public class MovementManager : MonoBehaviour {
     private Vector3[,] locations;
     public int locationX = 0;
     public int locationY = 0;
+    public bool pieceChosen = false;
+    public GameObject piece;
 	// Use this for initialization
 	void Start () {
         locations = gameObject.GetComponent<BoardArray>().GetLocations();
@@ -73,5 +75,25 @@ public class MovementManager : MonoBehaviour {
             pickerLocation.z = 0;
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
+
+        if (Input.GetKeyDown("space") && pieceChosen == true)
+        {
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+            }
+        }
+
+        if (Input.GetKeyDown("space") && pieceChosen == false)
+        {
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] != null)
+            {
+                piece = GetComponent<BoardArray>().GetPieces()[locationY, locationX];
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
+                pieceChosen = true;
+            }
+        }
+
     }
 }
