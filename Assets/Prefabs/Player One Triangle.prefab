@@ -22,7 +22,7 @@ GameObject:
   - 212: {fileID: 212000010340098486}
   m_Layer: 0
   m_Name: Player One Triangle
-  m_TagString: Untagged
+  m_TagString: 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
