@@ -16,6 +16,8 @@ public class MovementManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        //Moves selector piece up on the board
         if (Input.GetKeyDown("up"))
         {
             if(locationY-1 < 0)
@@ -31,6 +33,7 @@ public class MovementManager : MonoBehaviour {
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
 
+        //Moves selector piece down on the board
         if (Input.GetKeyDown("down"))
         {
             if (locationY + 1 > 9)
@@ -46,6 +49,7 @@ public class MovementManager : MonoBehaviour {
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
 
+        //Moves selector piece left on the board
         if (Input.GetKeyDown("left"))
         {
             if (locationX - 1 < 0)
@@ -61,6 +65,7 @@ public class MovementManager : MonoBehaviour {
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
 
+        //Moves selector piece right on the board
         if (Input.GetKeyDown("right"))
         {
             if (locationX + 1 > 9)
@@ -76,24 +81,54 @@ public class MovementManager : MonoBehaviour {
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
 
-        if (Input.GetKeyDown("space") && pieceChosen == true)
+        //Chooses the piece you want to move
+        if (Input.GetKeyDown("space"))
         {
-            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            //Checks if a piece is chosen
+            if (pieceChosen == true)
             {
-                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
-                pieceChosen = false;
+                //Checks if location us clear of other pieces
+                if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+                {
+                    piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                    pieceChosen = false;
+                    GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+                }
+            }
+
+            else if (pieceChosen == false)
+            {
+                //Checks if chosen location has a piece
+                if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] != null)
+                {
+                    piece = GetComponent<BoardArray>().GetPieces()[locationY, locationX];
+                    //Checks which players piece is chosen
+                    if (piece.tag == "1")
+                    {
+                        GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
+                        pieceChosen = true;
+                    }
+                    else if (piece.tag == "2")
+                    {
+                        GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
+                        pieceChosen = true;
+                    }
+                    else if(piece.tag == "3")
+                    {
+                        GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
+                        pieceChosen = true;
+                    }
+                    else if(piece.tag == "4")
+                    {
+                        GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
+                        pieceChosen = true;
+                    }
+                    else
+                    {
+                        piece = null;
+                    }
+                }
             }
         }
-
-        if (Input.GetKeyDown("space") && pieceChosen == false)
-        {
-            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] != null)
-            {
-                piece = GetComponent<BoardArray>().GetPieces()[locationY, locationX];
-                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
-                pieceChosen = true;
-            }
-        }
-
     }
 }
