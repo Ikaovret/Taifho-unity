@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class MovementManager : MonoBehaviour {
@@ -16,7 +16,6 @@ public class MovementManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         //Moves selector piece up on the board
         if (Input.GetKeyDown("up"))
         {
@@ -33,6 +32,7 @@ public class MovementManager : MonoBehaviour {
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
 
+
         //Moves selector piece down on the board
         if (Input.GetKeyDown("down"))
         {
@@ -48,6 +48,7 @@ public class MovementManager : MonoBehaviour {
             pickerLocation.z = 0;
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
+
 
         //Moves selector piece left on the board
         if (Input.GetKeyDown("left"))
