@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -40,6 +40,6 @@ public class UiManager : MonoBehaviour {
         players3.GetComponent<Button>().interactable = true;
         players4.SetActive(true);
         players4.GetComponent<Button>().interactable = true;
-
+        man.enabled = !man.enabled;
     }
 }
