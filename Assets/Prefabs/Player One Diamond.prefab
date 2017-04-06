@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012805659558}
   - 212: {fileID: 212000012350460024}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player One Diamond
   m_TagString: 1
   m_Icon: {fileID: 0}

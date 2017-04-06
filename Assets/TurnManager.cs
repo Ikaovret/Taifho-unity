@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour {
-	private int turn;
-    private int players;
+	private int turn = 1;
+    private int players = 2;
     public void SetPlayers(int players){
         this.players = players;
     }
@@ -22,13 +22,20 @@ public class TurnManager : MonoBehaviour {
 			turn = +1;
 		}
 	}
+
+    public void TwoPlayers()
+    {
+        SetPlayers(2);
+    }
+
+    public void ThreePlayers()
+    {
+        SetPlayers(3);
+    }
+    public void FourPlayers()
+    {
+        SetPlayers(4);
+    }
 	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-			
-	}
+
 }

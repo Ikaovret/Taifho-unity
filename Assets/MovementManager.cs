@@ -4,8 +4,11 @@ using System.Collections;
 public class MovementManager : MonoBehaviour {
     private Vector3 pickerLocation;
     private Vector3[,] locations;
+    public int shape;
     public int locationX = 0;
     public int locationY = 0;
+    public int originX = 0;
+    public int originY = 0;
     public bool pieceChosen = false;
     public GameObject piece;
 	// Use this for initialization
@@ -81,18 +84,34 @@ public class MovementManager : MonoBehaviour {
             GameObject.Find("picker").GetComponent<Transform>().position = pickerLocation;
         }
 
+        if (Input.GetKeyDown("escape"))
+        {
+            GetComponent<BoardArray>().GetPieces()[originY, originX] = piece;
+            piece = null;
+            pieceChosen = false;
+        }
+
         //Chooses the piece you want to move
         if (Input.GetKeyDown("space"))
         {
             //Checks if a piece is chosen
             if (pieceChosen == true)
             {
-                //Checks if location us clear of other pieces
-                if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+                if(piece.layer == 8)
                 {
-                    piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
-                    pieceChosen = false;
-                    GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+                    CircleMovement();
+                }
+                else if (piece.layer == 9)
+                {
+                    SquareMovement();
+                }
+                else if(piece.layer == 10)
+                {
+                    TriangleMovement();
+                }
+                else if(piece.layer == 11)
+                {
+                    DiamondMovement();
                 }
             }
 
@@ -102,27 +121,45 @@ public class MovementManager : MonoBehaviour {
                 if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] != null)
                 {
                     piece = GetComponent<BoardArray>().GetPieces()[locationY, locationX];
+
                     //Checks which players piece is chosen
-                    if (piece.tag == "1")
+                    if (piece.tag == "1" && GetComponent<TurnManager>().GetTurn() == 1)
                     {
                         GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
                         pieceChosen = true;
+                        GetComponent<TurnManager>().TurnChange();
+                        originX = locationX;
+                        originY = locationY;
                     }
-                    else if (piece.tag == "2")
+
+                    else if (piece.tag == "2" && GetComponent<TurnManager>().GetTurn() == 2)
                     {
                         GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
                         pieceChosen = true;
+                        GetComponent<TurnManager>().TurnChange();
+                        originX = locationX;
+                        originY = locationY;
                     }
-                    else if(piece.tag == "3")
+
+                    else if (piece.tag == "3" && GetComponent<TurnManager>().GetTurn() == 3)
                     {
                         GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
                         pieceChosen = true;
+                        GetComponent<TurnManager>().TurnChange();
+                        originX = locationX;
+                        originY = locationY;
                     }
-                    else if(piece.tag == "4")
+
+                    else if (piece.tag == "4" && GetComponent<TurnManager>().GetTurn() == 4)
                     {
                         GetComponent<BoardArray>().GetPieces()[locationY, locationX] = null;
                         pieceChosen = true;
+                        GetComponent<TurnManager>().TurnChange();
+                        originX = locationX;
+                        originY = locationY;
                     }
+
+                    //If player chooses another player's piece, it will not choose anything
                     else
                     {
                         piece = null;
@@ -130,5 +167,218 @@ public class MovementManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void SquareMovement()
+    {
+        if (locationX == originX - 1 && locationY == originY)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX + 1 && locationY == originY)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX && locationY == originY - 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX && locationY == originY + 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+    }
+
+    public void DiamondMovement()
+    {
+        if (locationX == originX - 1 && locationY == originY - 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX + 1 && locationY == originY + 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX + 1 && locationY == originY - 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX - 1 && locationY == originY + 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+    }
+
+    public void CircleMovement()
+    {
+        if (locationX == originX - 1 && locationY == originY - 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX + 1 && locationY == originY + 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX + 1 && locationY == originY - 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX - 1 && locationY == originY + 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX - 1 && locationY == originY)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX + 1 && locationY == originY)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX && locationY == originY - 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+        else if (locationX == originX && locationY == originY + 1)
+        {
+            //Checks if location is clear of other pieces
+            if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+            {
+                piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                pieceChosen = false;
+                GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+            }
+        }
+    }
+
+    public void TriangleMovement()
+    {
+        if(piece.tag == "1")
+        {
+            if (locationX == originX - 1 && locationY == originY - 1)
+            {
+                //Checks if location is clear of other pieces
+                if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+                {
+                    piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                    pieceChosen = false;
+                    GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+                }
+            }
+            else if (locationX == originX + 1 && locationY == originY - 1)
+            {
+                //Checks if location is clear of other pieces
+                if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+                {
+                    piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                    pieceChosen = false;
+                    GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+                }
+            }
+            else if (locationX == originX && locationY == originY + 1)
+            {
+                //Checks if location is clear of other pieces
+                if (GetComponent<BoardArray>().GetPieces()[locationY, locationX] == null)
+                {
+                    piece.GetComponent<Transform>().position = GetComponent<BoardArray>().GetLocations()[locationY, locationX];
+                    pieceChosen = false;
+                    GetComponent<BoardArray>().GetPieces()[locationY, locationX] = piece;
+                }
+            }
+        }
+    }
+    public GameObject GetPiece()
+    {
+        return piece;
     }
 }

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010071751598}
   - 212: {fileID: 212000010166988128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player One Square
   m_TagString: 1
   m_Icon: {fileID: 0}

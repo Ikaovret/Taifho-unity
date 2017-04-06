@@ -28,7 +28,10 @@ public class BoardArray : MonoBehaviour {
             }
             y -= 1;
         }
-        pieces[3, 9] = GameObject.Find("Player One Circle");
+        pieces[9,1] = GameObject.Find("Player One Circle");
+        pieces[9,2] = GameObject.Find("Player One Square");
+        pieces[9,3] = GameObject.Find("Player One Diamond");
+        pieces[9,4] = GameObject.Find("Player One Triangle");
     }
 
     // Update is called once per frame
